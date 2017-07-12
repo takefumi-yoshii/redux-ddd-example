@@ -1,0 +1,25 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [ "react", "flowtype" ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+  },
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:flowtype/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": { "jsx": true }
+  },
+  "rules": {
+    "no-undef": 0,
+    "camelcase": 0,
+    "react/prop-types": [ 0 ],
+    "react/react-in-jsx-scope": 0
+  }
+}
