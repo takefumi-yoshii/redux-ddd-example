@@ -21,7 +21,8 @@ declare type Todo = {
 
 declare class TodoModel extends CRUDRecord {
   getTask: () => string,
-  updateTask: () => TodoModel
+  updateTask: () => TodoModel,
+  getFormattedLatestUpdateDate: () => string
 }
 
 declare type Todos = {

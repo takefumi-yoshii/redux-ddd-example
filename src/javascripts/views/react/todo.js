@@ -3,20 +3,20 @@
 import { Component } from 'react'
 
 export class TodoItem extends Component {
-  props: { index: number, task: string, date: string, updateTodo: Function, deleteTodo: Function }
+  props: { index: number, item: TodoModel, updateTodo: Function, deleteTodo: Function }
   state: { editing: boolean }
   state = { editing: false, value: '' }
   componentWillMount () {
-    const { task } = this.props
-    this.setState({ value: task })
+    const { item } = this.props
+    this.setState({ value: item.getTask() })
   }
   render () {
-    const { index, date, deleteTodo } = this.props
+    const { index, item, deleteTodo } = this.props
     const { editing, value } = this.state
     return (
       <li className="todo-item list-group-item">
         <form onSubmit={ e => { e.preventDefault(); this.handleSubmit(e) }}>
-          <p>latest_updated_at : { date }</p>
+          <p>latest_updated_at : { item.getFormattedLatestUpdateDate() }</p>
           <div className="input-group">
             <input
               className="form-control"

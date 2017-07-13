@@ -40,11 +40,7 @@ function TodoItems (props: { todos: TodosModel, updateTodo: Function, deleteTodo
   const { todos, updateTodo, deleteTodo } = props
   const list: Array<any> = todos.getTodosList()
   const items = list.map((item: TodoModel, i: number) => {
-    const index: number = i
-    const key: string = item.getID()
-    const task: string = item.getTask()
-    const date: string = item.getUpdatedAt().toLocaleString()
-    const _props = { key, index, task, date, updateTodo, deleteTodo }
+    const _props = { key: item.getID(), index: i, item, updateTodo, deleteTodo }
     return <TodoItem { ..._props } />
   })
   return (
