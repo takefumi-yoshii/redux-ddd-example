@@ -2,7 +2,7 @@
 
 import CRUDRecord from '~/models/crud'
 
-const props: Todo = {
+const props: TodoSchema = {
   task: ''
 }
 

@@ -3,7 +3,7 @@
 import { Record, List } from 'immutable'
 import TodoModel from '~/models/todo'
 
-const props: Todos = {
+const props: TodosSchema = {
   list: List([]),
   input: ''
 }

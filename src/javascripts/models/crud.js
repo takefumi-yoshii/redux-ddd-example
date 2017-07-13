@@ -4,7 +4,7 @@ import { Record } from 'immutable'
 import { uuid } from '~/lib/helper/uuid'
 
 const props = (def: any) => {
-  const p: CRUD = {
+  const p: CRUDSchema = {
     id: 0,
     created_at: 0,
     updated_at: 0,

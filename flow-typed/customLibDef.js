@@ -2,7 +2,7 @@ import lodash from 'lodash'
 
 declare var _ : typeof lodash
 
-declare type CRUD = {
+declare type CRUDSchema = {
   id: number,
   created_at: Date,
   updated_at: Date
@@ -15,7 +15,7 @@ declare class CRUDRecord {
   setUpdatedAt: () => CRUDRecord
 }
 
-declare type Todo = {
+declare type TodoSchema = {
   task: string
 }
 
@@ -25,7 +25,7 @@ declare class TodoModel extends CRUDRecord {
   getFormattedLatestUpdateDate: () => string
 }
 
-declare type Todos = {
+declare type TodosSchema = {
   list: List,
   input: string
 }
