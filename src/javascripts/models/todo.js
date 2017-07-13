@@ -14,6 +14,9 @@ export default class TodoModel extends CRUDRecord(props) {
   getTask (): string {
     return this.get('task')
   }
+  updateTask (value: string): TodoModel {
+    return this.set('task', value).setUpdatedAt()
+  }
   getFormattedLatestUpdateDate (): string {
     return this.getUpdatedAt().toLocaleString()
   }

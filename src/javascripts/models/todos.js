@@ -29,9 +29,7 @@ export default class TodosModel extends Record(props) {
   }
   updateTodo (payload: { index: number, value: string }): TodosModel {
     const { index, value } = payload
-    return this.updateIn(['list', index], (todo: TodoModel) => {
-      return todo.set('task', value).setUpdatedAt()
-    })
+    return this.updateIn(['list', index], (todo: TodoModel) => todo.updateTask(value))
   }
   updateInput (value: string): TodosModel {
     return this.set('input', value)
