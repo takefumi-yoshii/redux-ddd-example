@@ -3,9 +3,9 @@
 import { Component } from 'react'
 import { connectedProvider } from '~/lib/react/middleware'
 import { creators } from '~/redux/todos'
+import { TodoModel } from '~/models/todo'
 import { TodoItem } from '~/views/react/todo'
 import type { Store } from 'redux'
-import TodoModel from '~/models/todo'
 
 export default function ReactTodos (store: Store<*, *>, dataset: Map<*, *>) {
   return connectedProvider(TodosContainer, store, dataset, creators)

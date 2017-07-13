@@ -1,14 +1,14 @@
 // @flow
 
 import { Record, List } from 'immutable'
-import TodoModel from '~/models/todo'
+import { TodoModel } from '~/models/todo'
 
 const props: TodosSchema = {
   list: List([]),
   input: ''
 }
 
-export default class TodosModel extends Record(props) {
+export class TodosModel extends Record(props) {
   constructor (list: List<Array<TodoModel>> = List([])) {
     super()
     return this.set('list', list)
@@ -16,7 +16,7 @@ export default class TodosModel extends Record(props) {
   getTodosSize (): number {
     return this.get('list').length
   }
-  getTodosList (): List<TodoModel> {
+  getTodosList (): Array<TodoModel> {
     return this.get('list')
   }
   pushTodo (): TodosModel {

@@ -6,7 +6,7 @@ const props: TodoSchema = {
   task: ''
 }
 
-export default class TodoModel extends CRUDRecord(props) {
+export class TodoModel extends CRUDRecord(props) {
   constructor (task: string = 'MyTodo') {
     super()
     return this.set('task', task)
