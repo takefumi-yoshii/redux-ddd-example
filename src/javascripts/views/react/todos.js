@@ -25,14 +25,24 @@ export class TodosContainer extends Component {
 function TodoForm (props: { pushTodo: Function, updateInput: Function }) {
   const { pushTodo, updateInput } = props
   return (
-    <form onSubmit={ e => e.preventDefault() } >
-      <div className="input-group">
+    <div className="navbar-default navbar-collapse collapse">
+      <ul className="nav navbar-nav navbar-right">
+        <li className="dropdown">
+          <a role="button" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">priority [ High ] <span className="caret" /></a>
+          <ul className="dropdown-menu" role="menu">
+            <li><a href="#">High</a></li>
+            <li><a href="#">Middle</a></li>
+            <li><a href="#">Low</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form className="navbar-form navbar-right" onSubmit={ e => e.preventDefault() } >
         <input className="form-control" type="text" onChange={ (e) => updateInput(e.target.value) } />
-        <span className="input-group-btn">
-          <button className="btn btn-primary" onClick={ () => pushTodo() }>add todo</button>
-        </span>
-      </div>
-    </form>
+        <button className="btn btn-primary active" onClick={ () => pushTodo() }>add todo</button>
+      </form>
+      
+    </div>
   )
 }
 
