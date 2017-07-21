@@ -5,7 +5,13 @@ import { TodoModel } from '~/models/todo'
 
 const props: TodosSchema = {
   list: List([]),
-  input: ''
+  input: '',
+  priority: 0,
+  priorityLabels: [
+    'Low',
+    'Middle',
+    'High'
+  ]
 }
 
 export class TodosModel extends Record(props) {
@@ -19,10 +25,22 @@ export class TodosModel extends Record(props) {
   getTodosList (): Array<TodoModel> {
     return this.get('list')
   }
+  getPriority (): string {
+    const n = this.get('priority')
+    return this.get('priorityLabels')[n]
+  }
+  getPriorityLabels (): Array<string> {
+    return this.get('priorityLabels')
+  }
+  getPrioritySelectLabel (): InnerHTMLString {
+    const label = this.getPriority()
+    return { __html: `priority [ ${label} ] <span class="caret"></span>` }
+  }
   pushTodo (): TodosModel {
     const task: string = this.get('input')
     if (task === '') return this
-    return this.update('list', list => list.push(new TodoModel(task)))
+    const priority: string = this.getPriority()
+    return this.update('list', list => list.push(new TodoModel({ task, priority })))
   }
   deleteTodo (index: number): TodosModel {
     return this.update('list', list => list.delete(index))
@@ -33,5 +51,8 @@ export class TodosModel extends Record(props) {
   }
   updateInput (value: string): TodosModel {
     return this.set('input', value)
+  }
+  setPriority (index: number): TodosModel {
+    return this.update('priority', o => index)
   }
 }

@@ -16,6 +16,7 @@ export class TodoItem extends Component {
     return (
       <li className="todo-item list-group-item">
         <form onSubmit={ e => { e.preventDefault(); this.handleSubmit(e) }}>
+          <p>Priority : { item.getPriority() }</p>
           <p>latest_updated_at : { item.getFormattedLatestUpdateDate() }</p>
           <div className="input-group">
             <input

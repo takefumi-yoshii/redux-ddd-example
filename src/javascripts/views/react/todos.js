@@ -22,27 +22,34 @@ export class TodosContainer extends Component {
   }
 }
 
-function TodoForm (props: { pushTodo: Function, updateInput: Function }) {
-  const { pushTodo, updateInput } = props
+function TodoForm ({ todos, pushTodo, updateInput, setPriority }: { todos: TodosModel, pushTodo: Function, updateInput: Function, setPriority: Function }) {
   return (
     <div className="navbar-default navbar-collapse collapse">
-      <ul className="nav navbar-nav navbar-right">
-        <li className="dropdown">
-          <a role="button" className="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">priority [ High ] <span className="caret" /></a>
-          <ul className="dropdown-menu" role="menu">
-            <li><a href="#">High</a></li>
-            <li><a href="#">Middle</a></li>
-            <li><a href="#">Low</a></li>
-          </ul>
-        </li>
-      </ul>
-
       <form className="navbar-form navbar-right" onSubmit={ e => e.preventDefault() } >
         <input className="form-control" type="text" onChange={ (e) => updateInput(e.target.value) } />
         <button className="btn btn-primary active" onClick={ () => pushTodo() }>add todo</button>
       </form>
-      
+      <ul className="nav navbar-nav navbar-right">
+        <li className="dropdown">
+          <a role="button"
+            className="dropdown-toggle"
+            data-toggle="dropdown"
+            aria-expanded="false"
+            dangerouslySetInnerHTML={ todos.getPrioritySelectLabel() }
+          />
+          <PriorityDropdown options={ todos.getPriorityLabels() } setPriority={ setPriority } />
+        </li>
+      </ul>
     </div>
+  )
+}
+
+function PriorityDropdown ({ options, setPriority }: { options: Array<string>, setPriority: Function }) {
+  const items = options.map((n, i) => <li key={i}><a onClick={ () => setPriority(i) }>{ n }</a></li>)
+  return (
+    <ul className="dropdown-menu" role="menu">
+      { items }
+    </ul>
   )
 }
 
