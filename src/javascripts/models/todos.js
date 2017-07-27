@@ -43,11 +43,13 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
     const priority: number = this.get('priority')
     return this.update('list', list => list.push(new TodoViewModel({ task, priority })))
   }
-  updateTodo (payload: { index: number, value: string }): TodosModel {
-    const { index, value } = payload
-    return this.updateIn(['list', index], (todo: TodoViewModel) => todo.updateTask(value))
+  updateTodo (payload: { id: string, value: string }): TodosModel {
+    const { id, value } = payload
+    const index: number = this._getItemIndexByID(id)
+    return this.updateIn(['list', this._getItemIndexByID(id)], (todo: TodoViewModel) => todo.updateTask(value))
   }
-  deleteTodo (index: number): TodosModel {
+  deleteTodo (id: string): TodosModel {
+    const index: number = this._getItemIndexByID(id)
     return this.update('list', list => list.delete(index))
   }
   updateInput (value: string): TodosModel {
@@ -61,5 +63,10 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   }
   setDescending (descending: number): TodosViewModel {
     return this.set('descending', descending)
+  }
+  // private
+  
+  _getItemIndexByID (id: string): number {
+    return this.get('list').findIndex(v => v.getID() === id)
   }
 }

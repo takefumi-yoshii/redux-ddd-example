@@ -27,7 +27,8 @@ function TodoItems (props: { todos: TodosViewModel, updateTodo: Function, delete
   const { todos, updateTodo, deleteTodo } = props
   const list: Array<any> = todos.getSortedTodosList()
   const items = list.map((item: TodoViewModel, i: number) => {
-    const _props = { key: item.getID(), index: i, item, updateTodo, deleteTodo }
+    const id = item.getID()
+    const _props = { key: id, id, item, updateTodo, deleteTodo }
     return <TodoItem { ..._props } />
   })
   return (

@@ -58,8 +58,8 @@ declare class TodosModel {
   getTodosList: () => TodoModel[],
   getPriority: () => number,
   pushTodo: () => TodosModel,
-  updateTodo: () => TodosModel,
-  deleteTodo: (index: number) => TodosModel,
+  updateTodo: (payload: { id: string, value: string }) => TodosModel,
+  deleteTodo: (id: string) => TodosModel,
   updateInput: (value: string) => TodosModel,
   setPriority: (index: number) => TodosModel
 }

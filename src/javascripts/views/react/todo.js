@@ -3,7 +3,7 @@
 import { Component } from 'react'
 
 export class TodoItem extends Component {
-  props: { index: number, item: TodoViewModel, updateTodo: Function, deleteTodo: Function }
+  props: { id: string, item: TodoViewModel, updateTodo: Function, deleteTodo: Function }
   state: { editing: boolean }
   state = { editing: false, value: '' }
   componentWillMount () {
@@ -11,7 +11,7 @@ export class TodoItem extends Component {
     this.setState({ value: item.getTask() })
   }
   render () {
-    const { index, item, deleteTodo } = this.props
+    const { id, item, deleteTodo } = this.props
     const { editing, value } = this.state
     return (
       <li className="todo-item list-group-item">
@@ -30,8 +30,8 @@ export class TodoItem extends Component {
               onFocus={this.handleFocus}
               onChange={this.handleChange}
             />
-            <ButtonDone editing={editing} deleteTodo={deleteTodo} index={index} />
-            <ButtonUpdate editing={editing} deleteTodo={deleteTodo} index={index} />
+            <ButtonDone editing={editing} deleteTodo={deleteTodo} id={id} />
+            <ButtonUpdate editing={editing} id={id} />
           </div>
         </form>
       </li>
@@ -45,17 +45,17 @@ export class TodoItem extends Component {
   }
   handleSubmit = (e: { target: { input: HTMLInputElement } }) => {
     const { updateTodo } = this.props
-    updateTodo({ index: this.props.index, value: e.target.input.value })
+    updateTodo({ id: this.props.id, value: e.target.input.value })
     this.setState({ editing: false })
   }
 }
 
-function ButtonDone (props: { editing: boolean, deleteTodo: Function, index: number }) {
-  const { editing, deleteTodo, index } = props
+function ButtonDone (props: { editing: boolean, deleteTodo: Function, id: string }) {
+  const { editing, deleteTodo, id } = props
   if (editing) return null
   return (
     <span className="input-group-btn">
-      <button className="btn btn-secondary" onClick={ () => deleteTodo(index) }>done</button>
+      <button className="btn btn-secondary" onClick={ () => deleteTodo(id) }>done</button>
     </span>
   )
 }

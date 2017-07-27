@@ -1,4 +1,4 @@
-import { TodoViewModel } from '~/models/todoView'
+import { TodosViewModel } from '~/models/todoView'
 
 export function TodosForm ({ todos, pushTodo, updateInput, setPriority, setSortType }: { todos: TodosViewModel, pushTodo: Function, updateInput: Function, setPriority: Function, setSortType: Function }) {
   return (
@@ -33,7 +33,7 @@ function SortDropdown ({ todos, setSortType }: { todos: TodosViewModel, setSortT
   )
 }
 
-function SortDropdownMenu ({ options, setSortType }: { options: Array<string>, setSortType: Function }) {
+function SortDropdownMenu ({ options, setSortType }: { options: string[], setSortType: Function }) {
   const items = options.map((n, i) => <li key={i}><a onClick={ () => setSortType(i) }>{ n }</a></li>)
   return (
     <ul className="dropdown-menu" role="menu">
@@ -62,7 +62,7 @@ function PriorityDropdown ({ todos, setPriority }: { todos: TodosViewModel, setP
   )
 }
 
-function PriorityDropdownMenu ({ options, setPriority }: { options: Array<string>, setPriority: Function }) {
+function PriorityDropdownMenu ({ options, setPriority }: { options: string[], setPriority: Function }) {
   const items = options.map((n, i) => <li key={i}><a onClick={ () => setPriority(i) }>{ n }</a></li>)
   return (
     <ul className="dropdown-menu" role="menu">
