@@ -7,7 +7,8 @@ const { types, creators, reducer } = createActionReducer([
   'updateTodo',
   'deleteTodo',
   'updateInput',
-  'setPriority'
+  'setPriority',
+  'setSortType'
 ], '/todos/')
 
 export { types, creators, reducer }

@@ -37,7 +37,9 @@ declare class TodoModel extends CRUDRecord {
 
 declare class TodoViewModel extends TodoModel {
   getPriorityLabel: () => string,
+  getFormattedCreatedDate: () => string,
   getFormattedLatestUpdateDate: () => string,
+  getPriorityLabelClassName: () => string
 }
 // _____________________________________________
 
@@ -64,6 +66,13 @@ declare class TodosModel {
 
 declare class TodosViewModel extends TodosModel {
   getPriorityLabel: () => string,
-  getPriorityLabels (): string[],
-  getPrioritySelectLabel: () => any
+  getPriorityLabels: () => string[],
+  getSortTypeLabel: () => string,
+  getSortTypeLabels: () => string[],
+  getPrioritySelectLabel: () => InnerHTMLString,
+  getSortTypeSelectLabel: () => InnerHTMLString,
+  getSortedTodosList: () => TodoViewModel[],
+  getSortedTodosListByCreatedAt: () => TodoViewModel[],
+  getSortedTodosListByUpdatedAt: () => TodoViewModel[],
+  getSortedTodosListByPriority: () => TodoViewModel[]
 }

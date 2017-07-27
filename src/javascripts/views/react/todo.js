@@ -16,8 +16,11 @@ export class TodoItem extends Component {
     return (
       <li className="todo-item list-group-item">
         <form onSubmit={ e => { e.preventDefault(); this.handleSubmit(e) }}>
-          <p>Priority : { item.getPriorityLabel() }</p>
-          <p>latest_updated_at : { item.getFormattedLatestUpdateDate() }</p>
+          <div className="panel-body">
+            <p className={ item.getPriorityLabelClassName() }>Priority : { item.getPriorityLabel() }</p>-
+            <p className="label label-primary">CreatedAt : { item.getFormattedCreatedDate() }</p>-
+            <p className="label label-primary">UpdatedAt : { item.getFormattedLatestUpdateDate() }</p>
+          </div>
           <div className="input-group">
             <input
               className="form-control"

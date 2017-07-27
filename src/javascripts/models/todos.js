@@ -8,25 +8,35 @@ const props = (def: any) => {
     list: List([]),
     input: '',
     priority: 0,
+    sortType: 0,
+    descending: 1,
     ...def
   }
   return p
 }
 
 export const TodosModel = (def: any) => class extends Record(props(def)) {
-  constructor (list: List<Array<TodoViewModel>> = List([])) {
+  constructor (list: List<TodoViewModel> = List([])) {
     super()
     return this.set('list', list)
   }
   getTodosSize (): number {
     return this.get('list').length
   }
-  getTodosList (): TodoViewModel[] {
+  getTodosList (): List<TodoViewModel> {
     return this.get('list')
   }
   getPriority (): string {
     return this.get('priority')
   }
+  getSortType (): string {
+    return this.get('sortType')
+  }
+  getDescending (): string {
+    return this.get('descending')
+  }
+  // setter
+
   pushTodo (): TodosModel {
     const task: string = this.get('input')
     if (task === '') return this
@@ -45,5 +55,11 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   }
   setPriority (index: number): TodosModel {
     return this.update('priority', o => index)
+  }
+  setSortType (index: number): TodosViewModel {
+    return this.set('sortType', index)
+  }
+  setDescending (descending: number): TodosViewModel {
+    return this.set('descending', descending)
   }
 }
