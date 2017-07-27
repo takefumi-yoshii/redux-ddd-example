@@ -8,7 +8,8 @@ import { sortTypeLabels } from '~/models/sortTypeLabels'
 
 const props: TodosViewModelSchema = {
   priorityLabels,
-  sortTypeLabels
+  sortTypeLabels,
+  orderLabels: ['Ascending', 'Descending']
 }
 
 export class TodosViewModel extends TodosModel(props) {
@@ -26,6 +27,13 @@ export class TodosViewModel extends TodosModel(props) {
   getSortTypeLabels (): string[] {
     return this.get('sortTypeLabels')
   }
+  getOrderLabel (): string {
+    const n = this.getOrder()
+    return this.get('orderLabels')[n]
+  }
+  getOrderLabels (): string[] {
+    return this.get('orderLabels')
+  }
   getPrioritySelectLabel (): InnerHTMLString {
     const label = this.getPriorityLabel()
     return { __html: `priority [ ${label} ] <span class="caret"></span>` }
@@ -33,6 +41,10 @@ export class TodosViewModel extends TodosModel(props) {
   getSortTypeSelectLabel (): InnerHTMLString {
     const label = this.getSortTypeLabel()
     return { __html: `sort [ ${label} ] <span class="caret"></span>` }
+  }
+  getOrderSelectLabel (): InnerHTMLString {
+    const label = this.getOrderLabel()
+    return { __html: `order [ ${label} ] <span class="caret"></span>` }
   }
   getSortedTodosList (): List<TodoViewModel> {
     switch (this.getSortTypeLabel()) {
@@ -47,32 +59,32 @@ export class TodosViewModel extends TodosModel(props) {
     }
   }
   getSortedTodosListByCreatedAt (): List<TodoViewModel> {
-    const descending = this.get('descending')
+    const order = this.getOrderOffset()
     return this.getTodosList().sort((a: TodoViewModel, b: TodoViewModel): any => {
       const _a = a.getCreatedAt().getTime()
       const _b = b.getCreatedAt().getTime()
-      if (_a < _b) { return descending }
-      if (_a > _b) { return descending * -1 }
+      if (_a < _b) { return order }
+      if (_a > _b) { return order * -1 }
       if (_a === _b) { return 0 }
     })
   }
   getSortedTodosListByUpdatedAt (): List<TodoViewModel> {
-    const descending = this.get('descending')
+    const order = this.getOrderOffset()
     return this.getTodosList().sort((a: TodoViewModel, b: TodoViewModel): any => {
       const _a = a.getUpdatedAt().getTime()
       const _b = b.getUpdatedAt().getTime()
-      if (_a < _b) { return descending }
-      if (_a > _b) { return descending * -1 }
+      if (_a < _b) { return order }
+      if (_a > _b) { return order * -1 }
       if (_a === _b) { return 0 }
     })
   }
   getSortedTodosListByPriority (): List<TodoViewModel> {
-    const descending = this.get('descending')
+    const order = this.getOrderOffset()
     return this.getTodosList().sort((a: TodoViewModel, b: TodoViewModel): any => {
       const _a = a.getPriority()
       const _b = b.getPriority()
-      if (_a < _b) { return descending }
-      if (_a > _b) { return descending * -1 }
+      if (_a < _b) { return order }
+      if (_a > _b) { return order * -1 }
       if (_a === _b) { return 0 }
     })
   }

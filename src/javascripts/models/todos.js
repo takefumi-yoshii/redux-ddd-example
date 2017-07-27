@@ -9,7 +9,7 @@ const props = (def: any) => {
     input: '',
     priority: 0,
     sortType: 0,
-    descending: 1,
+    order: 1,
     ...def
   }
   return p
@@ -23,17 +23,20 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   getTodosSize (): number {
     return this.get('list').length
   }
-  getTodosList (): List<TodoViewModel> {
-    return this.get('list')
-  }
   getPriority (): string {
     return this.get('priority')
   }
   getSortType (): string {
     return this.get('sortType')
   }
-  getDescending (): string {
-    return this.get('descending')
+  getOrder (): string {
+    return this.get('order')
+  }
+  getOrderOffset (): number {
+    return this.getOrder() ? 1 : -1
+  }
+  getTodosList (): List<TodoViewModel> {
+    return this.get('list')
   }
   // setter
 
@@ -46,7 +49,7 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   updateTodo (payload: { id: string, value: string }): TodosModel {
     const { id, value } = payload
     const index: number = this._getItemIndexByID(id)
-    return this.updateIn(['list', this._getItemIndexByID(id)], (todo: TodoViewModel) => todo.updateTask(value))
+    return this.updateIn(['list', index], (todo: TodoViewModel) => todo.updateTask(value))
   }
   deleteTodo (id: string): TodosModel {
     const index: number = this._getItemIndexByID(id)
@@ -61,8 +64,8 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   setSortType (index: number): TodosViewModel {
     return this.set('sortType', index)
   }
-  setDescending (descending: number): TodosViewModel {
-    return this.set('descending', descending)
+  setOrder (order: number): TodosViewModel {
+    return this.set('order', order)
   }
   // private
   
