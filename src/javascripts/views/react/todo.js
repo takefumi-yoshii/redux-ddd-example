@@ -3,7 +3,7 @@
 import { Component } from 'react'
 
 export class TodoItem extends Component {
-  props: { index: number, item: TodoModel, updateTodo: Function, deleteTodo: Function }
+  props: { index: number, item: TodoViewModel, updateTodo: Function, deleteTodo: Function }
   state: { editing: boolean }
   state = { editing: false, value: '' }
   componentWillMount () {
@@ -16,7 +16,7 @@ export class TodoItem extends Component {
     return (
       <li className="todo-item list-group-item">
         <form onSubmit={ e => { e.preventDefault(); this.handleSubmit(e) }}>
-          <p>Priority : { item.getPriority() }</p>
+          <p>Priority : { item.getPriorityLabel() }</p>
           <p>latest_updated_at : { item.getFormattedLatestUpdateDate() }</p>
           <div className="input-group">
             <input

@@ -18,32 +18,52 @@ declare class CRUDRecord {
   getUpdatedAt: () => Date,
   setUpdatedAt: () => CRUDRecord
 }
+// _____________________________________________
 
-declare type TodoSchema = {
-  task: string
+declare type TodoModelSchema = {
+  task: string,
+  priority: number,
+}
+
+declare type TodoViewModelSchema = {
+  priorityLabels: string[]
 }
 
 declare class TodoModel extends CRUDRecord {
   getTask: () => string,
+  getPriority: () => number,
   updateTask: (value: string) => TodoModel,
-  getFormattedLatestUpdateDate: () => string,
-  getPriority: () => string
 }
 
-declare type TodosSchema = {
+declare class TodoViewModel extends TodoModel {
+  getPriorityLabel: () => string,
+  getFormattedLatestUpdateDate: () => string,
+}
+// _____________________________________________
+
+declare type TodosModelSchema = {
   list: List,
-  input: string
+  input: string,
+  priority: number
+}
+
+declare type TodosViewModelSchema = {
+  priorityLabels: string[]
 }
 
 declare class TodosModel {
   getTodosSize: () => number,
-  getTodosList: () => Array<TodoModel>,
-  getPriority: () => string,
-  getPriorityLabels (): Array<string>,
-  getPrioritySelectLabel: () => any,
+  getTodosList: () => TodoModel[],
+  getPriority: () => number,
   pushTodo: () => TodosModel,
   updateTodo: () => TodosModel,
   deleteTodo: (index: number) => TodosModel,
   updateInput: (value: string) => TodosModel,
   setPriority: (index: number) => TodosModel
+}
+
+declare class TodosViewModel extends TodosModel {
+  getPriorityLabel: () => string,
+  getPriorityLabels (): string[],
+  getPrioritySelectLabel: () => any
 }

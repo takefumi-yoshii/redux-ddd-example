@@ -2,13 +2,17 @@
 
 import CRUDRecord from '~/models/crud'
 
-const props: TodoSchema = {
-  task: '',
-  priority: ''
+const props = (def: any) => {
+  const p: TodoModelSchema = {
+    task: '',
+    priority: 0,
+    ...def
+  }
+  return p
 }
 
-export class TodoModel extends CRUDRecord(props) {
-  constructor ({ task = 'MyTodo', priority = '' }: { task: string, priority: string }) {
+export const TodoModel = (def: any) => class extends CRUDRecord(props(def)) {
+  constructor ({ task = 'MyTodo', priority = 0 }: { task: string, priority: number }) {
     super()
     return this.set('task', task).set('priority', priority)
   }
@@ -20,8 +24,5 @@ export class TodoModel extends CRUDRecord(props) {
   }
   updateTask (value: string): TodoModel {
     return this.set('task', value).setUpdatedAt()
-  }
-  getFormattedLatestUpdateDate (): string {
-    return this.getUpdatedAt().toLocaleString()
   }
 }

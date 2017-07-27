@@ -3,7 +3,7 @@
 import { Component } from 'react'
 import { connectedProvider } from '~/lib/react/middleware'
 import { creators } from '~/redux/todos'
-import { TodoModel } from '~/models/todo'
+import { TodoViewModel } from '~/models/todoView'
 import { TodoItem } from '~/views/react/todo'
 import type { Store } from 'redux'
 
@@ -22,7 +22,7 @@ export class TodosContainer extends Component {
   }
 }
 
-function TodoForm ({ todos, pushTodo, updateInput, setPriority }: { todos: TodosModel, pushTodo: Function, updateInput: Function, setPriority: Function }) {
+function TodoForm ({ todos, pushTodo, updateInput, setPriority }: { todos: TodosViewModel, pushTodo: Function, updateInput: Function, setPriority: Function }) {
   return (
     <div className="navbar-default navbar-collapse collapse">
       <form className="navbar-form navbar-right" onSubmit={ e => e.preventDefault() } >
@@ -53,10 +53,10 @@ function PriorityDropdown ({ options, setPriority }: { options: Array<string>, s
   )
 }
 
-function TodoItems (props: { todos: TodosModel, updateTodo: Function, deleteTodo: Function }) {
+function TodoItems (props: { todos: TodosViewModel, updateTodo: Function, deleteTodo: Function }) {
   const { todos, updateTodo, deleteTodo } = props
   const list: Array<any> = todos.getTodosList()
-  const items = list.map((item: TodoModel, i: number) => {
+  const items = list.map((item: TodoViewModel, i: number) => {
     const _props = { key: item.getID(), index: i, item, updateTodo, deleteTodo }
     return <TodoItem { ..._props } />
   })

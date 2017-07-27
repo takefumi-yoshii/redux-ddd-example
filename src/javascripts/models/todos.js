@@ -1,53 +1,44 @@
 // @flow
 
 import { Record, List } from 'immutable'
-import { TodoModel } from '~/models/todo'
+import { TodoViewModel } from '~/models/todoView'
 
-const props: TodosSchema = {
-  list: List([]),
-  input: '',
-  priority: 0,
-  priorityLabels: [
-    'Low',
-    'Middle',
-    'High'
-  ]
+const props = (def: any) => {
+  const p: TodosModelSchema = {
+    list: List([]),
+    input: '',
+    priority: 0,
+    ...def
+  }
+  return p
 }
 
-export class TodosModel extends Record(props) {
-  constructor (list: List<Array<TodoModel>> = List([])) {
+export const TodosModel = (def: any) => class extends Record(props(def)) {
+  constructor (list: List<Array<TodoViewModel>> = List([])) {
     super()
     return this.set('list', list)
   }
   getTodosSize (): number {
     return this.get('list').length
   }
-  getTodosList (): Array<TodoModel> {
+  getTodosList (): TodoViewModel[] {
     return this.get('list')
   }
   getPriority (): string {
-    const n = this.get('priority')
-    return this.get('priorityLabels')[n]
-  }
-  getPriorityLabels (): Array<string> {
-    return this.get('priorityLabels')
-  }
-  getPrioritySelectLabel (): InnerHTMLString {
-    const label = this.getPriority()
-    return { __html: `priority [ ${label} ] <span class="caret"></span>` }
+    return this.get('priority')
   }
   pushTodo (): TodosModel {
     const task: string = this.get('input')
     if (task === '') return this
-    const priority: string = this.getPriority()
-    return this.update('list', list => list.push(new TodoModel({ task, priority })))
-  }
-  deleteTodo (index: number): TodosModel {
-    return this.update('list', list => list.delete(index))
+    const priority: number = this.get('priority')
+    return this.update('list', list => list.push(new TodoViewModel({ task, priority })))
   }
   updateTodo (payload: { index: number, value: string }): TodosModel {
     const { index, value } = payload
-    return this.updateIn(['list', index], (todo: TodoModel) => todo.updateTask(value))
+    return this.updateIn(['list', index], (todo: TodoViewModel) => todo.updateTask(value))
+  }
+  deleteTodo (index: number): TodosModel {
+    return this.update('list', list => list.delete(index))
   }
   updateInput (value: string): TodosModel {
     return this.set('input', value)
