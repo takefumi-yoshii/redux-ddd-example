@@ -1,7 +1,7 @@
 // @flow
 
 import { TodoModel } from '~/models/todo'
-import { priorityLabels } from '~/models/todoPriorityLabels'
+import { priorityLabels } from '~/models/priorityLabels'
 
 const props: TodoViewModelSchema = {
   priorityLabels
