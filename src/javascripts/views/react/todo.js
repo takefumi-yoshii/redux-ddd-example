@@ -4,8 +4,8 @@ import { Component } from 'react'
 
 export class TodoItem extends Component {
   props: { id: string, item: TodoViewModel, updateTodo: Function, deleteTodo: Function }
-  state: { editing: boolean }
-  state = { editing: false, value: '' }
+  state: { editing: boolean, value: string } = { editing: false, value: '' }
+  textInput: HTMLInputElement
   componentWillMount () {
     const { item } = this.props
     this.setState({ value: item.getTask() })
@@ -29,6 +29,8 @@ export class TodoItem extends Component {
               value={value}
               onFocus={this.handleFocus}
               onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              ref={(input: HTMLInputElement) => { this.textInput = input }}
             />
             <ButtonDone editing={editing} deleteTodo={deleteTodo} id={id} />
             <ButtonUpdate editing={editing} id={id} />
@@ -43,10 +45,14 @@ export class TodoItem extends Component {
   handleChange = ({ target }: SyntheticInputEvent) => {
     this.setState({ value: target.value })
   }
+  handleBlur = () => {
+    this.setState({ editing: false })
+  }
   handleSubmit = (e: { target: { input: HTMLInputElement } }) => {
     const { updateTodo } = this.props
     updateTodo({ id: this.props.id, value: e.target.input.value })
     this.setState({ editing: false })
+    this.textInput.blur()
   }
 }
 
