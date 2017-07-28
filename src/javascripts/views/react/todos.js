@@ -16,7 +16,7 @@ export class TodosContainer extends Component {
   render () {
     return (
       <div className="todo-container">
-        <TodosForm  { ...this.props } />
+        <TodosForm { ...this.props } />
         <TodoItems { ...this.props } />
       </div>
     )
@@ -28,8 +28,8 @@ function TodoItems (props: { todos: TodosViewModel, updateTodo: Function, delete
   const list: Array<any> = todos.getSortedTodosList()
   const items = list.map((item: TodoViewModel, i: number) => {
     const id = item.getID()
-    const _props = { key: id, id, item, updateTodo, deleteTodo }
-    return <TodoItem { ..._props } />
+    const _props = { id, item, updateTodo, deleteTodo }
+    return <TodoItem key={ id } { ..._props } />
   })
   return (
     <div className="todo-items">

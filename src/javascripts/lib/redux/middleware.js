@@ -1,8 +1,7 @@
 // @flow
 
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
-import createSagaMiddleware from 'redux-saga'
-import { effects } from 'redux-saga'
+import createSagaMiddleware, { effects } from 'redux-saga'
 import type { Store, Reducer, ActionCreator } from 'redux'
 
 export const composeEnhancers = (

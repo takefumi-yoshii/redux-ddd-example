@@ -68,7 +68,7 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
     return this.set('order', order)
   }
   // private
-  
+
   _getItemIndexByID (id: string): number {
     return this.get('list').findIndex(v => v.getID() === id)
   }
