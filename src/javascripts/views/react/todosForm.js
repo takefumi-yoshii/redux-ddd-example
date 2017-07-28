@@ -1,4 +1,6 @@
-import { TodosViewModel } from '~/models/todoView'
+// @flow
+
+import { TodosViewModel } from '~/models/todosView'
 
 export function TodosForm ({ todos, pushTodo, updateInput, setPriority, setSortType, setOrder }: { todos: TodosViewModel, pushTodo: Function, updateInput: Function, setPriority: Function, setSortType: Function, setOrder: Function }) {
   return (
