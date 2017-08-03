@@ -15,10 +15,10 @@ declare class TodosFilterModel {
   getSortType: () => string,
   getOrder: () => string,
   getTodosFilterJS: () => any,
-  restoreTodosFilter: (src: any) => TodosModel,
-  setPriority: (index: number) => TodosModel,
-  setSortType: (index: number) => TodosViewModel,
-  setOrder: (order: number) => TodosViewModel,
+  restoreTodosFilter: (src: any) => TodosFilterModel,
+  setPriority: (index: number) => TodosFilterModel,
+  setSortType: (index: number) => TodosFilterModel,
+  setOrder: (order: number) => TodosFilterModel,
 }
 
 declare class TodosFilterViewModel extends TodosFilterModel {
