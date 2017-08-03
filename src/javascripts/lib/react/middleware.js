@@ -3,7 +3,7 @@
 import { bindActionCreators } from 'redux'
 import { render } from 'react-dom'
 import { Provider, connect } from 'react-redux'
-import type { Store, Dispatch, ActionCreator } from 'redux'
+import type { Store, Dispatch } from 'redux'
 
 export function renderReact (selector: string, component: Function, store: Store<*, *>, datasetMock: any) {
   const elements = document.querySelectorAll(selector)
@@ -23,7 +23,7 @@ export function connectedProvider (component: *, store: Store<*, *>, dataset: Ma
   )
 }
 
-export function connectedComponent (component: any, actionCreators: ActionCreator<*, Function>) {
+export function connectedComponent (component: any, actionCreators: any) {
   return connect(
     state => state,
     (dispatch: Dispatch<any>) => bindActionCreators(actionCreators, dispatch)
