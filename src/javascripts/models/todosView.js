@@ -4,10 +4,20 @@ import { List } from 'immutable'
 import { TodosModel } from '~/models/todos'
 import { TodoViewModel } from '~/models/todoView'
 
-export class TodosViewModel extends TodosModel({}) {
+const props: TodosViewModelSchema = {
+  orderOffset: 1,
+  sortType: 'CreatedAt'
+}
+
+export class TodosViewModel extends TodosModel(props) {
+  getOrderOffset (): number {
+    return this.get('orderOffset')
+  }
+  getSortType (): string {
+    return this.get('sortType')
+  }
   getSortedTodosList (): List<TodoViewModel> {
-    const n = this.getSortType()
-    switch (n) {
+    switch (this.getSortType()) {
       case 0 :
         return this.getSortedTodosListByCreatedAt()
       case 1 :
@@ -47,5 +57,14 @@ export class TodosViewModel extends TodosModel({}) {
       if (_a > _b) { return order * -1 }
       if (_a === _b) { return 0 }
     })
+  }
+  // setter
+
+  setOrderOffset (order: number): TodosViewModel {
+    const offset: number = order === 1 ? 1 : -1
+    return this.set('orderOffset', offset)
+  }
+  setSortType (index: number): TodosViewModel {
+    return this.set('sortType', index)
   }
 }

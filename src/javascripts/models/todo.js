@@ -23,6 +23,6 @@ export const TodoModel = (def: any) => class extends CRUDRecord(props(def)) {
     return this.get('priority')
   }
   updateTask (value: string): TodoModel {
-    return this.set('task', value).setUpdatedAt()
+    return this.set('task', value).updateUpdatedAt()
   }
 }

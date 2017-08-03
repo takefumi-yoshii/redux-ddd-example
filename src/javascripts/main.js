@@ -8,7 +8,10 @@ import { TodosFormViewModel } from '~/models/todosFormView'
 import { TodosFilterViewModel } from '~/models/todosFilterView'
 import { TodosViewModel } from '~/models/todosView'
 import { renderViews } from '~/views/main'
-import { todosSaga } from '~/services/todos'
+import { todosFormSaga } from '~/services/todosForm'
+import { todosValueMapSaga } from '~/services/todosValueMap'
+import { saveTodosSaga } from '~/services/saveTodos'
+import { saveTodosFilterSaga } from '~/services/saveTodosFilter'
 import type { Store } from 'redux'
 
 const reducer = extendReducers({
@@ -18,4 +21,10 @@ const reducer = extendReducers({
 })
 export const store: Store<*, *> = createReduxStore(reducer)
 renderViews(store)
-runRootSaga(todosSaga)
+
+runRootSaga([
+  todosFormSaga,
+  todosValueMapSaga,
+  saveTodosSaga,
+  saveTodosFilterSaga
+])

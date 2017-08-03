@@ -22,15 +22,22 @@ export const TodosFilterModel = (def: any) => class extends Record(props(def)) {
   getOrder (): string {
     return this.get('order')
   }
+  getTodosFilterJS (): any {
+    return this.toJS()
+  }
   // setter
 
-  setPriority (index: number): TodosModel {
+  restoreTodosFilter (src: any): TodosFilterModel {
+    if (src === null) return this
+    return this.setPriority(src.priority).setSortType(src.sortType).setOrder(src.order)
+  }
+  setPriority (index: number): TodosFilterModel {
     return this.set('priority', index)
   }
-  setSortType (index: number): TodosViewModel {
+  setSortType (index: number): TodosFilterModel {
     return this.set('sortType', index)
   }
-  setOrder (order: number): TodosViewModel {
+  setOrder (order: number): TodosFilterModel {
     return this.set('order', order)
   }
 }

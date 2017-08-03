@@ -22,10 +22,10 @@ export function extendReducers (defaultReducer: *, exentions: * = {}): Reducer<*
 }
 
 export function createActions (constants: Array<string>, namespace: string) {
-  const types = {}
-  const creators = {}
+  const types: ActionTypes = {}
+  const creators: ActionCreators = {}
   constants.map((row: string) => {
-    const type: string = `${namespace}${row}`
+    const type: ActionType = `${namespace}${row}`
     types[row] = type
     creators[row] = payload => { return { type, payload } }
   })
