@@ -22,9 +22,6 @@ export const TodosFilterModel = (def: any) => class extends Record(props(def)) {
   getOrder (): string {
     return this.get('order')
   }
-  getOrderOffset (): number {
-    return this.getOrder() ? 1 : -1
-  }
   // setter
 
   setPriority (index: number): TodosModel {

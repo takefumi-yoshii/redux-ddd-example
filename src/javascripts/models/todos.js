@@ -39,9 +39,8 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   }
   // setter
 
-  pushTodo (task: string): TodosModel {
+  pushTodo ({ task, priority }: { task: string, priority: number }): TodosModel {
     if (task === '') return this
-    const priority: number = this.get('priority')
     return this.update('list', list => list.push(new TodoViewModel({ task, priority })))
   }
   updateTodo (payload: { id: string, value: string }): TodosModel {
@@ -62,6 +61,7 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   setOrder (order: number): TodosViewModel {
     return this.set('order', order)
   }
+
   // private
 
   _getItemIndexByID (id: string): number {

@@ -42,4 +42,7 @@ export class TodosFilterViewModel extends TodosFilterModel(props) {
     const label = this.getOrderLabel()
     return { __html: `order [ ${label} ] <span class="caret"></span>` }
   }
+  getPriorityLabelByLevel (level: number): string {
+    return this.getPriorityLabels()[level]
+  }
 }

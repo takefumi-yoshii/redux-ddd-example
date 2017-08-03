@@ -1,17 +1,8 @@
 // @flow
 
 import { TodoModel } from '~/models/todo'
-import { priorityLabels } from '~/models/priorityLabels'
 
-const props: TodoViewModelSchema = {
-  priorityLabels
-}
-
-export class TodoViewModel extends TodoModel(props) {
-  getPriorityLabel (): string {
-    const n: number = this.getPriority()
-    return this.get('priorityLabels')[n]
-  }
+export class TodoViewModel extends TodoModel({}) {
   getFormattedCreatedDate (): string {
     return this.getCreatedAt().toLocaleString()
   }
