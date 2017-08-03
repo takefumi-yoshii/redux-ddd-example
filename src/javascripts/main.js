@@ -11,6 +11,7 @@ import { renderViews } from '~/views/main'
 import { todosFormSaga } from '~/services/todosForm'
 import { todosValueMapSaga } from '~/services/todosValueMap'
 import { saveTodosSaga } from '~/services/saveTodos'
+import { saveTodosFilterSaga } from '~/services/saveTodosFilter'
 import type { Store } from 'redux'
 
 const reducer = extendReducers({
@@ -24,5 +25,6 @@ renderViews(store)
 runRootSaga([
   todosFormSaga,
   todosValueMapSaga,
-  saveTodosSaga
+  saveTodosSaga,
+  saveTodosFilterSaga
 ])

@@ -7,7 +7,7 @@ import { creators } from '~/redux/todos'
 function * mapPriority (): * {
   while (true) {
     const { payload } = yield take(TodosFilterTypes.setPriority)
-    yield put(creators['setPriority'](payload))
+    yield put(creators.setPriority(payload))
   }
 }
 
@@ -25,8 +25,19 @@ function * mapOrder (): * {
   }
 }
 
+function * mapRestore (): * {
+  while (true) {
+    const { payload } = yield take(TodosFilterTypes.restoreTodosFilter)
+    const { priority, sortType, order } = payload
+    yield put(creators.setPriority(priority))
+    yield put(creators.setSortType(sortType))
+    yield put(creators.setOrder(order))
+  }
+}
+
 export function * todosValueMapSaga (): * {
   yield fork(mapPriority)
   yield fork(mapSortType)
   yield fork(mapOrder)
+  yield fork(mapRestore)
 }
