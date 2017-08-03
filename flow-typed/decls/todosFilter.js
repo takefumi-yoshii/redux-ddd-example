@@ -14,6 +14,8 @@ declare class TodosFilterModel {
   getPriority: () => string,
   getSortType: () => string,
   getOrder: () => string,
+  getTodosFilterJS: () => any,
+  restoreTodosFilter: (src: any) => TodosModel,
   setPriority: (index: number) => TodosModel,
   setSortType: (index: number) => TodosViewModel,
   setOrder: (order: number) => TodosViewModel,
