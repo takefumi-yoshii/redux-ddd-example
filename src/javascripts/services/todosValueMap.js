@@ -1,30 +1,32 @@
-import { take, put } from 'redux-saga/effects'
+// @flow
+
+import { fork, take, put } from 'redux-saga/effects'
 import { types as TodosFilterTypes } from '~/redux/todosFilter'
 import { creators } from '~/redux/todos'
 
-function * mapPriority () {
+function * mapPriority (): * {
   while (true) {
     const { payload } = yield take(TodosFilterTypes.setPriority)
-    yield put(creators.setPriority(payload))
+    yield put(creators['setPriority'](payload))
   }
 }
 
-function * mapSortType () {
+function * mapSortType (): * {
   while (true) {
     const { payload } = yield take(TodosFilterTypes.setSortType)
     yield put(creators.setSortType(payload))
   }
 }
 
-function * mapOrder () {
+function * mapOrder (): * {
   while (true) {
     const { payload } = yield take(TodosFilterTypes.setOrder)
     yield put(creators.setOrder(payload))
   }
 }
 
-export function * todosValueMapSaga () {
-  yield mapPriority()
-  yield mapSortType()
-  yield mapOrder()
+export function * todosValueMapSaga (): * {
+  yield fork(mapPriority)
+  yield fork(mapSortType)
+  yield fork(mapOrder)
 }

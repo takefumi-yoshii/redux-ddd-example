@@ -1,8 +1,10 @@
-import { take, put, select } from 'redux-saga/effects'
+// @flow
+
+import { fork, take, put, select } from 'redux-saga/effects'
 import { types as TodosFormTypes } from '~/redux/todosForm'
 import { creators } from '~/redux/todos'
 
-function * subscribeSubmit () {
+function * subscribeSubmit (): * {
   while (true) {
     const { payload } = yield take(TodosFormTypes.submitForm)
     const { todosFilter } = yield select()
@@ -10,6 +12,6 @@ function * subscribeSubmit () {
   }
 }
 
-export function * todosFormSaga () {
-  yield subscribeSubmit()
+export function * todosFormSaga (): * {
+  yield fork(subscribeSubmit)
 }
