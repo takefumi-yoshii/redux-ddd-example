@@ -1,30 +1,29 @@
 declare type TodosModelSchema = {
-  list: List,
-  priority: number,
-  sortType: number,
-  order: number
+  list: List
 }
 
-declare type TodosViewModelSchema = {}
+declare type TodosViewModelSchema = {
+  orderOffset: number,
+  sortType: string
+}
 
 declare class TodosModel {
   getTodosSize: () => number,
-  getPriority: () => string,
-  getSortType: () => string,
-  getOrder: () => string,
-  getOrderOffset: () => number,
   getTodosList: () => List<TodoViewModel>,
+  getTodosListJS: () => any[],
+  restoreTodos: (src: any[]) => TodosModel,
   pushTodo: ({ task: string, priority: number }) => TodosModel,
   updateTodo: (payload: { id: string, value: string }) => TodosModel,
-  deleteTodo: (id: string) => TodosModel,
-  setPriority: (index: number) => TodosModel,
-  setSortType: (index: number) => TodosViewModel,
-  setOrder: (order: number) => TodosViewModel
+  deleteTodo: (id: string) => TodosModel
 }
 
 declare class TodosViewModel extends TodosModel {
+  getOrderOffset: () => number,
+  getSortType: () => string,
   getSortedTodosList: () => TodoViewModel[],
   getSortedTodosListByCreatedAt: () => TodoViewModel[],
   getSortedTodosListByUpdatedAt: () => TodoViewModel[],
-  getSortedTodosListByPriority: () => TodoViewModel[]
+  getSortedTodosListByPriority: () => TodoViewModel[],
+  setOrderOffset: (order: number) => TodosViewModel,
+  setSortType: (index: number) => TodosViewModel
 }
