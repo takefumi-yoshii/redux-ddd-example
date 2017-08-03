@@ -1,24 +1,24 @@
 // @flow
 
 import type { TodosFormViewModel } from '~/models/todosFormView'
+import type { TodosFilterViewModel } from '~/models/todosFilterView'
 
-export function TodosForm (
-  { todosForm, updateInput, submitForm, setPriority, setSortType, setOrder }: { todosForm: TodosFormViewModel, updateInput: Function, submitForm: Function, setPriority: Function, setSortType: Function, setOrder: Function }) {
+export function TodosForm ({ todosForm, todosFilter, updateInput, submitForm, setPriority, setSortType, setOrder }: { todosForm: TodosFormViewModel, todosFilter: TodosFilterViewModel, updateInput: Function, submitForm: Function, setPriority: Function, setSortType: Function, setOrder: Function }) {
   return (
     <div className="navbar-default navbar-collapse collapse">
       <form className="navbar-form navbar-right" onSubmit={ e => e.preventDefault() } >
         <input className="form-control" type="text" onChange={ (e) => updateInput(e.target.value) } />
         <button className="btn btn-primary active" onClick={ () => submitForm(todosForm.getInput()) }>add todo</button>
       </form>
-      <SortDropdown todosForm={ todosForm } setSortType={ setSortType } />
-      <OrderDropdown todosForm={ todosForm } setOrder={ setOrder } />
-      <PriorityDropdown todosForm={ todosForm } setPriority={ setPriority } />
+      <SortDropdown todosFilter={ todosFilter } setSortType={ setSortType } />
+      <OrderDropdown todosFilter={ todosFilter } setOrder={ setOrder } />
+      <PriorityDropdown todosFilter={ todosFilter } setPriority={ setPriority } />
     </div>
   )
 }
 // _____________________________________________
 
-function SortDropdown ({ todosForm, setSortType }: { todosForm: TodosFormViewModel, setSortType: Function }) {
+function SortDropdown ({ todosFilter, setSortType }: { todosFilter: TodosFormViewModel, setSortType: Function }) {
   return (
     <ul className="nav navbar-nav navbar-left">
       <li className="dropdown">
@@ -26,10 +26,10 @@ function SortDropdown ({ todosForm, setSortType }: { todosForm: TodosFormViewMod
           className="dropdown-toggle"
           data-toggle="dropdown"
           aria-expanded="false"
-          dangerouslySetInnerHTML={ todosForm.getSortTypeSelectLabel() }
+          dangerouslySetInnerHTML={ todosFilter.getSortTypeSelectLabel() }
         />
         <SortDropdownMenu
-          options={ todosForm.getSortTypeLabels() }
+          options={ todosFilter.getSortTypeLabels() }
           setSortType={ setSortType }
         />
       </li>
@@ -47,7 +47,7 @@ function SortDropdownMenu ({ options, setSortType }: { options: string[], setSor
 }
 // _____________________________________________
 
-function OrderDropdown ({ todosForm, setOrder }: { todosForm: TodosFormViewModel, setOrder: Function }) {
+function OrderDropdown ({ todosFilter, setOrder }: { todosFilter: TodosFormViewModel, setOrder: Function }) {
   return (
     <ul className="nav navbar-nav navbar-left">
       <li className="dropdown">
@@ -55,10 +55,10 @@ function OrderDropdown ({ todosForm, setOrder }: { todosForm: TodosFormViewModel
           className="dropdown-toggle"
           data-toggle="dropdown"
           aria-expanded="false"
-          dangerouslySetInnerHTML={ todosForm.getOrderSelectLabel() }
+          dangerouslySetInnerHTML={ todosFilter.getOrderSelectLabel() }
         />
         <OrderDropdownMenu
-          options={ todosForm.getOrderLabels() }
+          options={ todosFilter.getOrderLabels() }
           setOrder={ setOrder }
         />
       </li>
@@ -76,7 +76,7 @@ function OrderDropdownMenu ({ options, setOrder }: { options: string[], setOrder
 }
 // _____________________________________________
 
-function PriorityDropdown ({ todosForm, setPriority }: { todosForm: TodosFormViewModel, setPriority: Function }) {
+function PriorityDropdown ({ todosFilter, setPriority }: { todosFilter: TodosFormViewModel, setPriority: Function }) {
   return (
     <ul className="nav navbar-nav navbar-right">
       <li className="dropdown">
@@ -84,10 +84,10 @@ function PriorityDropdown ({ todosForm, setPriority }: { todosForm: TodosFormVie
           className="dropdown-toggle"
           data-toggle="dropdown"
           aria-expanded="false"
-          dangerouslySetInnerHTML={ todosForm.getPrioritySelectLabel() }
+          dangerouslySetInnerHTML={ todosFilter.getPrioritySelectLabel() }
         />
         <PriorityDropdownMenu
-          options={ todosForm.getPriorityLabels() }
+          options={ todosFilter.getPriorityLabels() }
           setPriority={ setPriority }
         />
       </li>

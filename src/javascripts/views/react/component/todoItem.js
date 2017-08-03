@@ -3,7 +3,7 @@
 import { Component } from 'react'
 
 export class TodoItem extends Component {
-  props: { id: string, item: TodoViewModel, updateTodo: Function, deleteTodo: Function }
+  props: { id: string, item: TodoViewModel, todosFilter: TodosFilterViewModel, updateTodo: Function, deleteTodo: Function }
   state: { editing: boolean, value: string } = { editing: false, value: '' }
   textInput: HTMLInputElement
   componentWillMount () {
@@ -11,13 +11,13 @@ export class TodoItem extends Component {
     this.setState({ value: item.getTask() })
   }
   render () {
-    const { id, item, deleteTodo } = this.props
+    const { id, item, todosFilter, deleteTodo } = this.props
     const { editing, value } = this.state
     return (
       <li className="todo-item list-group-item">
         <form onSubmit={ e => { e.preventDefault(); this.handleSubmit(e) }}>
           <div className="panel-body">
-            <p className={ item.getPriorityLabelClassName() }>Priority : { item.getPriorityLabel() }</p>-
+            <p className={ item.getPriorityLabelClassName() }>Priority : { todosFilter.getPriorityLabelByLevel(item.getPriority()) }</p>-
             <p className="label label-default">CreatedAt : { item.getFormattedCreatedDate() }</p>-
             <p className="label label-default">UpdatedAt : { item.getFormattedLatestUpdateDate() }</p>
           </div>
