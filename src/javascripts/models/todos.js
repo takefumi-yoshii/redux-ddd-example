@@ -1,6 +1,6 @@
 // @flow
 
-import { Record, List } from 'immutable'
+import { Record, List, fromJS } from 'immutable'
 import { TodoViewModel } from '~/models/todoView'
 
 const props = (def: any) => {
@@ -37,8 +37,24 @@ export const TodosModel = (def: any) => class extends Record(props(def)) {
   getTodosList (): List<TodoViewModel> {
     return this.get('list')
   }
+  getTodosListJS (): any[] {
+    return this.getTodosList().toJS()
+  }
   // setter
 
+  restoreTodos (src: any[]): TodosModel {
+    if (src === null) return this
+    const deserializedList: List<TodoViewModel> = fromJS(src).map(m => {
+      return new TodoViewModel({
+        task: m.get('task'),
+        priority: m.get('priority')
+      })
+      .restoreID(m.get('id'))
+      .restoreCreatedAt(new Date(m.get('created_at')))
+      .restoreUpdatedAt(new Date(m.get('updated_at')))
+    })
+    return this.set('list', deserializedList)
+  }
   pushTodo ({ task, priority }: { task: string, priority: number }): TodosModel {
     if (task === '') return this
     return this.update('list', list => list.push(new TodoViewModel({ task, priority })))

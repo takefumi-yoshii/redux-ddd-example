@@ -10,6 +10,7 @@ import { TodosViewModel } from '~/models/todosView'
 import { renderViews } from '~/views/main'
 import { todosFormSaga } from '~/services/todosForm'
 import { todosValueMapSaga } from '~/services/todosValueMap'
+import { saveTodosSaga } from '~/services/saveTodos'
 import type { Store } from 'redux'
 
 const reducer = extendReducers({
@@ -22,5 +23,6 @@ renderViews(store)
 
 runRootSaga([
   todosFormSaga,
-  todosValueMapSaga
+  todosValueMapSaga,
+  saveTodosSaga
 ])
