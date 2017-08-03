@@ -26,7 +26,7 @@ export const TodosFilterModel = (def: any) => class extends Record(props(def)) {
     return this.toJS()
   }
   // setter
-  
+
   restoreTodosFilter (src: any): TodosModel {
     if (src === null) return this
     return this.setPriority(src.priority).setSortType(src.sortType).setOrder(src.order)
