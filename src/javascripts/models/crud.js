@@ -29,8 +29,19 @@ const CRUDRecord = (def: any) => class extends Record(props(def)) {
   getUpdatedAt (): Date {
     return this.get('updated_at')
   }
-  setUpdatedAt (): CRUDRecord {
-    return this.set('updated_at', new Date())
+  // setter
+
+  updateUpdatedAt (): CRUDRecord {
+    return this.update('updated_at', n => new Date())
+  }
+  restoreID (id: string): CRUDRecord {
+    return this.update('id', n => id)
+  }
+  restoreCreatedAt (date: Date): CRUDRecord {
+    return this.update('created_at', n => date)
+  }
+  restoreUpdatedAt (date: Date): CRUDRecord {
+    return this.update('updated_at', n => date)
   }
 }
 
